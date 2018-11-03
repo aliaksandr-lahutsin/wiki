@@ -8,7 +8,7 @@ echo ===========================================================================
 echo
 echo Congigure System
 echo
-sudo yum install epel-release
+sudo yum install epel-release -y
 sudo yum groupinstall "Development Tools" -y
 sudo yum install gettext-devel openssl-devel perl-CPAN perl-devel zlib-devel -y
 echo
@@ -16,8 +16,8 @@ echo
 echo Instaling Git..
 echo
 sudo yum remove git -y
-sudo yum install http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-2.noarch.rpm
-sudo yum install git
+sudo yum install http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-2.noarch.rpm -y
+sudo yum install git -y
 echo
 echo
 git --version
@@ -26,18 +26,18 @@ echo ===========================================================================
 echo
 echo Instaling MongoDB...
 echo
-echo """
-[mongodb-org-4.0]
+echo \ 
+"""[mongodb-org-3.4]
 name=MongoDB Repository
-baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.0/x86_64/
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/
 gpgcheck=1
 enabled=1
-gpgkey=https://www.mongodb.org/static/pgp/server-4.0.asc
+gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc
 """ > /etc/yum.repos.d/mongodb-org.repo
 sudo yum install -y mongodb-org
-semanage port -a -t mongod_port_t -p tcp 27017
-systemctl enable mongod
-systemctl start mongod
+sudo semanage port -a -t mongod_port_t -p tcp 27017
+sudo systemctl enable mongod
+sudo systemctl start mongod
 echo
 echo
 mongod --version
