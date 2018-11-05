@@ -62,9 +62,10 @@ echo
 cd /opt
 mkdir -p wiki
 useradd wiki
-chown wiki:wiki wiki
 cd wiki
 curl -sSo- https://wiki.js.org/install.sh | bash
+cd ..
+sudo -R chown wiki:wiki wiki
 firewall-cmd --zone=public --add-port=4573/tcp
 node wiki configure 4573
 echo
